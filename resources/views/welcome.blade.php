@@ -7,6 +7,7 @@
     </head>
     <body>
         <div class="container">
+            <!--Új kategória felvétele -->
             <div class="content">
                 <div class="title">Új kategória felvétele</div>
             </div>
@@ -21,6 +22,8 @@
                 <button type="submit">Kategória felvétele</button>
             </form>
             <hr>
+
+            <!--Kategóriák -->
             <div class="content">
                 <div class="title">Kategóriák</div>
             </div>
@@ -41,6 +44,7 @@
                 @endforeach
             </table>
             <hr>
+            <!--Új tétel felvétele -->
             <div class="content">
                 <div class="title">Új tétel felvétele</div>
             </div>
@@ -58,6 +62,7 @@
                 <button type="submit">Tétel felvétele</button>
             </form>
             <hr>
+            <!--Tételek -->
             <div class="content">
                 <div class="title">Tételek</div>
             </div>
@@ -88,16 +93,6 @@
         integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
         crossorigin="anonymous"></script>
 <script>
-    function deleteRequest($type){
-        let id = $(this).attr('value');
-        $.ajax({
-            url: '/'+$type+'/'+id,
-            method: 'DELETE',
-            success: function () {
-            }
-
-        })
-    }
     $(document).ready(function () {
         $('.item-delete').on('click',function () {
             let id = $(this).attr('value');
@@ -105,7 +100,7 @@
                 url: '/item/'+id,
                 method: 'DELETE',
                 success: function () {
-                    window.location.replace("/category");
+                    window.location.replace("/");
                 }
 
             })
@@ -116,22 +111,10 @@
                 url: '/category/'+id,
                 method: 'DELETE',
                 success: function () {
-                    window.location.replace("/category");
+                    window.location.replace("/");
                 }
 
             })
         });
-        $('.category-update').on('click',function () {
-            let id = $(this).attr('value');
-            $.ajax({
-                url: '/category/'+id,
-                method: 'PATCH',
-                data: $('.category-'+id).serialize(),
-                success: function () {
-                    window.location.replace("/category");
-                }
-
-            })
-        })
     })
 </script>
