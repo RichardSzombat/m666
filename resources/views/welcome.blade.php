@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Laravel</title>
+        <title>Test1</title>
 
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
     </head>
@@ -28,11 +28,15 @@
                 <tr>
                     <th>Név</th>
                     <th>Bevétel/Kiadás</th>
+                    <th>Törlés</th>
+                    <th>Szerkesztés</th>
                 </tr>
                 @foreach($categories as $category)
-                <tr>
+                <tr class="category-{{$category->id}}">
                     <td>{{ $category->name }}</td>
                     <td>{{ $category->is_expense ? "Bevétel" : "Kiadás" }}</td>
+                    <td><button type="button" value="{{ $category->id }}" class="category-delete">Törlés</button></td>
+                    <td><a href="/category/{{$category->id}}/edit"><button type="button" > Szerkesztés</button></a></td>
                 </tr>
                 @endforeach
             </table>
@@ -84,12 +88,45 @@
         integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
         crossorigin="anonymous"></script>
 <script>
+    function deleteRequest($type){
+        let id = $(this).attr('value');
+        $.ajax({
+            url: '/'+$type+'/'+id,
+            method: 'DELETE',
+            success: function () {
+            }
+
+        })
+    }
     $(document).ready(function () {
         $('.item-delete').on('click',function () {
             let id = $(this).attr('value');
             $.ajax({
                 url: '/item/'+id,
                 method: 'DELETE',
+                success: function () {
+                    window.location.replace("/category");
+                }
+
+            })
+        });
+        $('.category-delete').on('click',function () {
+            let id = $(this).attr('value');
+            $.ajax({
+                url: '/category/'+id,
+                method: 'DELETE',
+                success: function () {
+                    window.location.replace("/category");
+                }
+
+            })
+        });
+        $('.category-update').on('click',function () {
+            let id = $(this).attr('value');
+            $.ajax({
+                url: '/category/'+id,
+                method: 'PATCH',
+                data: $('.category-'+id).serialize(),
                 success: function () {
                     window.location.replace("/category");
                 }

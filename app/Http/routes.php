@@ -12,6 +12,8 @@
 */
 
 
+Route::get('/','CategoryController@index');
+
 Route::resource('category','CategoryController');
 Route::resource('item','ItemController');
 

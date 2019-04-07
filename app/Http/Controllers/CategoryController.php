@@ -40,10 +40,8 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
-
         Category::create($request->all());
-        return redirect('/category');
+        return redirect('/');
     }
 
     /**
@@ -65,7 +63,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::find($id);
+        return view('category-edit',['category' => $category]);
     }
 
     /**
@@ -77,7 +76,8 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Category::where('id',$id)->update(['name' => $request->name,'is_expense' => $request->is_expense]);
+        return redirect('/');
     }
 
     /**
@@ -88,6 +88,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Category::destroy($id);
     }
 }

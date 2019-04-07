@@ -39,7 +39,7 @@ class ItemController extends Controller
     {
 
         Item::create($request->all());
-        return redirect('/category');
+        return redirect('/');
     }
 
     /**
